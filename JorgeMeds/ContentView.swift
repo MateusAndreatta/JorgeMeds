@@ -7,15 +7,40 @@
 
 import SwiftUI
 
+class SharedSessionManager: ObservableObject {
+    @Published var isUserSessionActive = false
+}
+
 struct ContentView: View {
+    
+    @StateObject var sessionManager = SharedSessionManager()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        if sessionManager.isUserSessionActive {
+            content
+        } else {
+            LoginView()
+                .environmentObject(sessionManager)
         }
-        .padding()
+    }
+    
+    var content: some View {
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("", systemImage: "house")
+                }
+
+            InformationView()
+                .tabItem {
+                    Label("", systemImage: "info.square")
+                }
+            
+            SettingsView()
+                .tabItem {
+                    Label("", systemImage: "gear")
+                }
+        }
     }
 }
 
