@@ -8,8 +8,37 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @ObservedObject private var viewModel = HomeViewModel()
+    
     var body: some View {
-        Text("Home View")
+        NavigationStack {
+            List {
+                ForEach(viewModel.medicationList) { medication in
+                    MedicationItem(medication: medication)
+                        .onTapGesture {
+                            print("edit")
+                        }
+                        .onLongPressGesture {
+                            viewModel.deleteMedication(medication)
+                        }
+                        .listRowSeparator(.hidden)
+                }
+                
+                ZStack {
+                  Text("Novo medicamento")
+                  NavigationLink(destination: MedicationView(), label: {
+                      EmptyView()
+                  }).opacity(0)
+                }
+                .listRowSeparator(.hidden)
+
+            }
+            .listStyle(.plain)
+            .navigationTitle("Medicamentos")
+        }.onAppear() {
+            viewModel.getMedicationList()
+        }
     }
 }
 
