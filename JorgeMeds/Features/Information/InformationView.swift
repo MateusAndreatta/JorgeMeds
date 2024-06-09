@@ -18,26 +18,24 @@ struct InformationView: View {
                     Section(header: Text("Alergias")) {
                         ForEach(0..<allergies.count, id: \.self) { index in
                             Text(allergies[index])
-                                .swipeActions {
-                                    Button("Remove", role: .destructive) {
-                                        viewModel.removeAllergy(at: index)
-                                    }
-                                    .tint(.red)
-                                }
                         }
                     }
                 }
                 
-                Section(header: Text("Medicamentos em uso")) {
-                    Text("Bromoprida")
-                    Text("Tramal")
-                    Text("Nimesulina")
-                    Text("Plasil")
-                    Text("Amoxilina")
-                    Text("Digesam")
+                if let medications = viewModel.medications, medications.count > 0 {
+                    Section(header: Text("Medicamentos em uso")) {
+                        ForEach(medications) { medication in
+                            Text(medication.name)
+                        }
+                    }
                 }
             }
             .navigationTitle("Seus dados")
+            .toolbar {
+                NavigationLink(destination: NewInformationView().environmentObject(viewModel)) {
+                    Image(systemName: "plus").foregroundColor(.gray)
+                }
+            }
         }
         .onAppear() {
             viewModel.fetchInformation()

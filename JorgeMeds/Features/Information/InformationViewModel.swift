@@ -10,14 +10,20 @@ import Foundation
 class InformationViewModel: ObservableObject {
     
     let service = InformationService()
+    let medicationService = MedicationService()
     
     @Published var information: Information?
+    @Published var medications: [Medication]?
     
     func fetchInformation() {
         service.getInformation { [weak self] information in
             if let information {
                 self?.information = information
             }
+        }
+        
+        medicationService.getAll { [weak self] medicationList in
+            self?.medications = medicationList
         }
     }
     
@@ -31,12 +37,17 @@ class InformationViewModel: ObservableObject {
     }
     
     func addAllergy(_ allergy: String) {
-//        if var information {
-//            information.allergies.remove(at: index)
-//            service.update(information: information) {
-//                
-//            }
-//        }
+        if var information {
+            information.allergies.append(allergy)
+            service.update(information: information) {
+                
+            }
+        } else {
+            let newInformation = Information(allergies: [allergy])
+            service.addNewInformation(newInformation, completion: { [weak self] in
+                self?.fetchInformation()
+            })
+        }
     }
     
 }

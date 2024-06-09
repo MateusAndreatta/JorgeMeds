@@ -11,16 +11,20 @@ import FirebaseFirestore
 class MedicationService {
     
     private var db = Firestore.firestore()
+    private let authManager = AuthManager.shared
     
-    private let collection = "medicamentos"
+    private let collection = "medications"
     
     func addNewMedication(_ medication: Medication, completion: @escaping () -> Void) {
+        guard let userId = authManager.userSession?.id else { return }
+        
         var ref: DocumentReference? = nil
         ref = db.collection(collection).addDocument(data: [
             "name": medication.name,
             "quantity": medication.quantity,
             "hours": medication.hours,
-            "lastUpdate": FieldValue.serverTimestamp()
+            "lastUpdate": FieldValue.serverTimestamp(),
+            "userId" : userId
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -66,7 +70,9 @@ class MedicationService {
     }
     
     func getAll(completion: @escaping ([Medication]) -> Void) {
-        db.collection(collection).getDocuments { (querySnapshot, err) in
+        guard let userId = authManager.userSession?.id else { return }
+
+        db.collection(collection).whereField("userId", isEqualTo: userId).getDocuments { (querySnapshot, err) in
             guard err == nil else {
                 print("error")
                 completion([])
