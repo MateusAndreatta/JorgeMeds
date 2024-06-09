@@ -8,10 +8,39 @@
 import SwiftUI
 
 struct InformationView: View {
+    
+    @ObservedObject var viewModel = InformationViewModel()
+    
     var body: some View {
         NavigationStack {
-            Text("Seus dados")
-                .navigationTitle("Seus dados")
+            List {
+                if let allergies = viewModel.information?.allergies, allergies.count > 0 {
+                    Section(header: Text("Alergias")) {
+                        ForEach(0..<allergies.count, id: \.self) { index in
+                            Text(allergies[index])
+                                .swipeActions {
+                                    Button("Remove", role: .destructive) {
+                                        viewModel.removeAllergy(at: index)
+                                    }
+                                    .tint(.red)
+                                }
+                        }
+                    }
+                }
+                
+                Section(header: Text("Medicamentos em uso")) {
+                    Text("Bromoprida")
+                    Text("Tramal")
+                    Text("Nimesulina")
+                    Text("Plasil")
+                    Text("Amoxilina")
+                    Text("Digesam")
+                }
+            }
+            .navigationTitle("Seus dados")
+        }
+        .onAppear() {
+            viewModel.fetchInformation()
         }
     }
 }

@@ -26,7 +26,6 @@ struct MedicationItem: View {
     }
     
     func calculateEndingDate() -> String {
-        print(medication)
         let qtdForDay = medication.hours.count
         let currentDate = Date()
         var dateComponent = DateComponents()

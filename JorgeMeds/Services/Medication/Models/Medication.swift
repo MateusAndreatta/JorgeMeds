@@ -13,6 +13,7 @@ struct Medication: Codable, Identifiable {
     var name: String
     var quantity: Int
     var hours: [String]
+    @ServerTimestamp var lastUpdate: Timestamp?
 }
 
 extension Medication {
@@ -39,5 +40,13 @@ extension Medication {
         }
         
         return dates
+    }
+    
+    mutating func updateQuantity(for newQuantity: Int) {
+        var newQuantity = quantity - newQuantity
+        if newQuantity < 0 {
+            newQuantity = 0
+        }
+        quantity = newQuantity
     }
 }

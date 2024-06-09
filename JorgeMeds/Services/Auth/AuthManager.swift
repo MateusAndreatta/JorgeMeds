@@ -16,7 +16,6 @@ class AuthManager {
     static var shared: AuthManager = {
         return AuthManager()
     }()
-
     
     func createAccount(email: String, password: String, name: String) async throws {
         let result = try await Auth.auth().createUser(withEmail: email, password: password)
