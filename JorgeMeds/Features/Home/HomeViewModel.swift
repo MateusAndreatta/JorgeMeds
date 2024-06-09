@@ -12,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var medicationList = [Medication]()
     
     let service = MedicationService()
+    let notificationManager = NotificationManager()
     
     func getMedicationList() {
         medicationList = []
@@ -39,6 +40,8 @@ class HomeViewModel: ObservableObject {
             }
             medicationList.append(medicationToCheck[index])
         }
+        
+        notificationManager.dispatchNotifications(for: medicationList)
     }
     
     private func getTakenMedicine(_ medication: Medication) -> Int {
@@ -158,6 +161,8 @@ class HomeViewModel: ObservableObject {
    }
     
     private func updateMedication(_ medication: Medication) {
-        service.update(medication: medication, completion: { })
+        service.update(medication: medication, completion: {
+            
+        })
     }
 }

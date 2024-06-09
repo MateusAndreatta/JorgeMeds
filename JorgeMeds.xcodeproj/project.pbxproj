@@ -36,6 +36,7 @@
 		393345CD2C154AA00072FD47 /* InformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345CC2C154AA00072FD47 /* InformationService.swift */; };
 		393345CF2C154C750072FD47 /* InformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345CE2C154C750072FD47 /* InformationViewModel.swift */; };
 		393345D22C15FCF20072FD47 /* NewInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345D12C15FCF20072FD47 /* NewInformationView.swift */; };
+		393345D52C161CCA0072FD47 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345D42C161CCA0072FD47 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		393345CC2C154AA00072FD47 /* InformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationService.swift; sourceTree = "<group>"; };
 		393345CE2C154C750072FD47 /* InformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewModel.swift; sourceTree = "<group>"; };
 		393345D12C15FCF20072FD47 /* NewInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInformationView.swift; sourceTree = "<group>"; };
+		393345D42C161CCA0072FD47 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				393345822C0FDAAB0072FD47 /* ContentView.swift */,
 				393345842C0FDAAD0072FD47 /* Assets.xcassets */,
 				393345862C0FDAAD0072FD47 /* Preview Content */,
+				393345D42C161CCA0072FD47 /* NotificationManager.swift */,
 			);
 			path = JorgeMeds;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				3933459E2C0FE1860072FD47 /* SettingsView.swift in Sources */,
 				393345D22C15FCF20072FD47 /* NewInformationView.swift in Sources */,
 				393345952C0FDB740072FD47 /* LoginViewModel.swift in Sources */,
+				393345D52C161CCA0072FD47 /* NotificationManager.swift in Sources */,
 				393345CF2C154C750072FD47 /* InformationViewModel.swift in Sources */,
 				393345BC2C125DFA0072FD47 /* MedicationViewModel.swift in Sources */,
 				393345C72C13D5AC0072FD47 /* MedicationItem.swift in Sources */,
