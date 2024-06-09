@@ -10,18 +10,31 @@ import Foundation
 class MedicationViewModel: ObservableObject {
     
     let service = MedicationService()
-//    private let editMedication: Medication?
-//    
-//    init(editMedication: Medication? = nil) {
-//        self.editMedication = editMedication
-//    }
+    private let editMedication: Medication?
+    
+    init(editMedication: Medication? = nil) {
+        self.editMedication = editMedication
+    }
     
     func saveMedication(name: String, quantity: String, dates: [Date]) {
         if let quantity = Int(quantity) {
-            let medication = Medication(name: name, quantity: quantity, hours: parseDates(dates))
-            service.addNewMedication(medication) {
-                print("completition")
+            
+            if var editMedication {
+                editMedication.name = name
+                editMedication.hours = parseDates(dates)
+                editMedication.quantity = quantity
+                
+                service.update(medication: editMedication) {
+                    print("edited")
+                }
+                
+            } else {
+                let medication = Medication(name: name, quantity: quantity, hours: parseDates(dates))
+                service.addNewMedication(medication) {
+                    print("completition")
+                }
             }
+
         }
     }
     

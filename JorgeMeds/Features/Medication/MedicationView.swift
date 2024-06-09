@@ -8,22 +8,28 @@
 import SwiftUI
 
 struct MedicationView: View {
-    @ObservedObject var viewModel = MedicationViewModel()
-    let editMedication: Medication? = nil
+    @ObservedObject var viewModel: MedicationViewModel
+    let editMedication: Medication?
     
-    @State var name: String = ""
-    @State var quantity: String = ""
-    @State var dates: [Date] = [Date()]
+    @State var name: String
+    @State var quantity: String
+    @State var dates: [Date]
     
-//    init(editMedication: Medication? = nil) {
-//        if let editMedication {
-//            name = editMedication.name
-//            quantity = String(editMedication.quantity)
-//            dates = editMedication.dateHours
-//            viewModel = MedicationViewModel(editMedication: editMedication)
-//            self.editMedication = editMedication
-//        }
-//    }
+    init(editMedication: Medication?) {
+        self.editMedication = editMedication
+        if let editMedication {
+            self.viewModel = MedicationViewModel(editMedication: editMedication)
+            
+            name = editMedication.name
+            quantity = String(editMedication.quantity)
+            dates = editMedication.dateHours
+        } else {
+            self.viewModel = MedicationViewModel(editMedication: nil)
+            name = ""
+            quantity = ""
+            dates = []
+        }
+    }
     
     var body: some View {
         VStack {
@@ -58,7 +64,7 @@ struct MedicationView: View {
 struct MedicationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MedicationView()
+            MedicationView(editMedication: nil)
         }
     }
 }

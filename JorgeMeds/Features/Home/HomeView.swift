@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
     
     @ObservedObject private var viewModel = HomeViewModel()
+    @State private var selectedMedication: Medication?
+       @State private var isMedicationViewActive: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -17,7 +19,8 @@ struct HomeView: View {
                 ForEach(viewModel.medicationList) { medication in
                     MedicationItem(medication: medication)
                         .onTapGesture {
-                            print("edit")
+                            selectedMedication = medication
+                            isMedicationViewActive = true
                         }
                         .onLongPressGesture {
                             viewModel.deleteMedication(medication)
@@ -27,7 +30,7 @@ struct HomeView: View {
                 
                 ZStack {
                   Text("Novo medicamento")
-                  NavigationLink(destination: MedicationView(), label: {
+                  NavigationLink(destination: MedicationView(editMedication: nil), label: {
                       EmptyView()
                   }).opacity(0)
                 }
@@ -36,6 +39,11 @@ struct HomeView: View {
             }
             .listStyle(.plain)
             .navigationTitle("Medicamentos")
+            .navigationDestination(isPresented: $isMedicationViewActive) {
+                if let medication = selectedMedication {
+                    MedicationView(editMedication: medication)
+                }
+            }
         }.onAppear() {
             viewModel.getMedicationList()
         }

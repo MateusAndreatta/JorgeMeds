@@ -10,9 +10,9 @@ import FirebaseFirestore
 
 struct Medication: Codable, Identifiable {
     @DocumentID var id: String?
-    let name: String
-    let quantity: Int
-    let hours: [String]
+    var name: String
+    var quantity: Int
+    var hours: [String]
 }
 
 extension Medication {
