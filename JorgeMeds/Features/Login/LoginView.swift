@@ -21,7 +21,7 @@ struct LoginView: View {
         
         NavigationView {
             VStack {
-                Text("Login")
+                Text("JorgeMeds 💊")
                     .font(.largeTitle)
                     .padding(.bottom, 40)
 
@@ -37,12 +37,17 @@ struct LoginView: View {
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
                 
-                NavigationLink(destination: SignUpView().environmentObject(sessionManager)) {
-                    Text("SignUp")
-                }
-                
-                Button("Login") {
+                Button {
                     loginButtonTapped()
+                } label: {
+                    Text("Login")
+                        .padding(.all, 8)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                
+                NavigationLink(destination: SignUpView().environmentObject(sessionManager)) {
+                    Text("Não tem uma conta? cadastrar")
                 }
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Login Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
@@ -72,5 +77,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(SharedSessionManager())
     }
 }

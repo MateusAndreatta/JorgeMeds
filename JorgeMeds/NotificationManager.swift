@@ -10,31 +10,45 @@ import UserNotifications
 
 class NotificationManager {
     
-    private func checkForPermission(completion: @escaping () -> Void) {
+    let defaults = UserDefaults.standard
+    
+    public func checkForPermission(completion: @escaping (Bool) -> Void) {
         let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.getNotificationSettings { settings in
+        notificationCenter.getNotificationSettings { [weak self] settings in
             switch settings.authorizationStatus {
             case .authorized:
-                completion()
+                completion(true)
             case .denied:
-                return
+                completion(false)
             case .notDetermined:
-                notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
-                    if didAllow {
-                        completion()
-                    }
+                self?.requestAuthorization() { didAllow in
+                    completion(didAllow)
                 }
             default:
-                return
+                completion(false)
             }
         }
     }
     
+    public func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
+            completion(didAllow)
+        }
+    }
+    
     public func dispatchNotifications(for medicationList: [Medication]) {
-        checkForPermission() { [weak self] in
-            for medication in medicationList {
-                for hour in medication.hours {
-                    self?.dispatchNotification(for: medication, at: hour)
+        let isNotificationsEnable = defaults.bool(forKey: "isNotificationsEnable")
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllPendingNotificationRequests()
+        if isNotificationsEnable {
+            checkForPermission() { [weak self] isEnable in
+                if isEnable {
+                    for medication in medicationList {
+                        for hour in medication.hours {
+                            self?.dispatchNotification(for: medication, at: hour)
+                        }
+                    }
                 }
             }
         }
@@ -47,8 +61,6 @@ class NotificationManager {
         let identifier = "identifier-\(medication.name)-\(hour)-\(minute)"
         let title = "Time to take \(medication.name)"
         let body = "Don't forget to take \(medication.name)!"
-//        let hour = splitedHours[0]
-//        let minute = splitedHours[1]
         let isDaily = true
         let notificationCenter = UNUserNotificationCenter.current()
         
@@ -63,7 +75,6 @@ class NotificationManager {
         dateComponents.minute = Int(minute)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        notificationCenter.removeAllPendingNotificationRequests()
         notificationCenter.add(request)
     }
 }

@@ -31,4 +31,21 @@ class AuthManager {
         userSession = try snapshot.data(as: UserData.self)
     }
     
+    func changeUserName(_ name: String) {
+        userSession?.name = name
+        guard let docId = userSession?.id else { return }
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(docId)
+        
+        ref.updateData([
+            "name": name
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
 }

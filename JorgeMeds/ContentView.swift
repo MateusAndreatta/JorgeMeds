@@ -37,6 +37,7 @@ struct ContentView: View {
                 }
             
             SettingsView()
+                .environmentObject(sessionManager)
                 .tabItem {
                     Label("", systemImage: "gear")
                 }

@@ -8,10 +8,53 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @ObservedObject var viewModel = SettingsViewModel()
+    @EnvironmentObject var sessionManager: SharedSessionManager
+    
+    @State private var showingAlert = false
+    @State private var userName = ""
+    
     var body: some View {
         NavigationStack {
-            Text("Configurações")
-                .navigationTitle("Configurações")
+            List {
+                
+                Text(viewModel.userName)
+                    .alert("Editar nome", isPresented: $showingAlert) {
+                        TextField("Your name", text: $userName)
+                        Button("OK", action: changeName)
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("Atualize o nome que deseja utilizar")
+                    }
+                    .onTapGesture {
+                        showingAlert = true
+                    }
+                
+                Toggle(isOn: $viewModel.isNotificationsEnable) {
+                    Text("Notificações")
+                }
+
+                Section(header: Text("Idioma")) {
+                    Text("🇧🇷 Portugues Brazil")
+                    Text("🇺🇸 English")
+                }
+                
+                Button("Logout") {
+                    viewModel.logout()
+                    sessionManager.isUserSessionActive = false
+                }
+            }.onAppear() {
+                viewModel.setupView()
+            }
+            .navigationTitle("Configurações")
+        }
+    }
+    
+    func changeName() {
+        if !userName.isEmpty {
+            viewModel.changeName(userName)
+            userName = ""
         }
     }
 }

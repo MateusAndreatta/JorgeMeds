@@ -9,6 +9,6 @@ import Foundation
 
 struct UserData: Codable {
     let id: String
-    let name: String
+    var name: String
     let email: String
 }
