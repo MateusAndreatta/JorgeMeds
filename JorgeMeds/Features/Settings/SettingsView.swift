@@ -20,24 +20,19 @@ struct SettingsView: View {
             List {
                 
                 Text(viewModel.userName)
-                    .alert("Editar nome", isPresented: $showingAlert) {
+                    .alert("Edit Name", isPresented: $showingAlert) {
                         TextField("Your name", text: $userName)
                         Button("OK", action: changeName)
                         Button("Cancel", role: .cancel) { }
                     } message: {
-                        Text("Atualize o nome que deseja utilizar")
+                        Text("Update the name you wish to use")
                     }
                     .onTapGesture {
                         showingAlert = true
                     }
                 
                 Toggle(isOn: $viewModel.isNotificationsEnable) {
-                    Text("Notificações")
-                }
-
-                Section(header: Text("Idioma")) {
-                    Text("🇧🇷 Portugues Brazil")
-                    Text("🇺🇸 English")
+                    Text("Notifications")
                 }
                 
                 Button("Logout") {
@@ -47,7 +42,7 @@ struct SettingsView: View {
             }.onAppear() {
                 viewModel.setupView()
             }
-            .navigationTitle("Configurações")
+            .navigationTitle("Settings")
         }
     }
     

@@ -25,13 +25,13 @@ struct LoginView: View {
                     .font(.largeTitle)
                     .padding(.bottom, 40)
 
-                TextField("Email", text: $email)
+                TextField(String(localized: "Email"), text: $email)
                     .padding()
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(5.0)
                     .padding(.bottom, 20)
-
-                SecureField("Password", text: $password)
+                
+                SecureField(String(localized: "Password"), text: $password)
                     .padding()
                     .background(Color(.secondarySystemBackground))
                     .cornerRadius(5.0)
@@ -42,12 +42,13 @@ struct LoginView: View {
                 } label: {
                     Text("Login")
                         .padding(.all, 8)
-                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 100)
+                    
                 }
                 .buttonStyle(.borderedProminent)
                 
                 NavigationLink(destination: SignUpView().environmentObject(sessionManager)) {
-                    Text("Não tem uma conta? cadastrar")
+                    Text("Don't have an account? Sign up.")
                 }
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Login Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))

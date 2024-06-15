@@ -44,6 +44,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     func changeName(_ name: String) {
+        userName = name
         authManager.changeUserName(name)
     }
     

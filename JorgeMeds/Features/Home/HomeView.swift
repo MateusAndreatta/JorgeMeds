@@ -29,7 +29,7 @@ struct HomeView: View {
                 }
                 
                 ZStack {
-                  Text("Novo medicamento")
+                  Text("New medication")
                   NavigationLink(destination: MedicationView(editMedication: nil), label: {
                       EmptyView()
                   }).opacity(0)
@@ -38,7 +38,7 @@ struct HomeView: View {
 
             }
             .listStyle(.plain)
-            .navigationTitle("Medicamentos")
+            .navigationTitle("Medications")
             .navigationDestination(isPresented: $isMedicationViewActive) {
                 if let medication = selectedMedication {
                     MedicationView(editMedication: medication)

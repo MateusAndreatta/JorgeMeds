@@ -16,7 +16,7 @@ struct NewInformationView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Alergias")) {
+            Section(header: Text("Allergies")) {
                 if let allergies = viewModel.information?.allergies, allergies.count > 0 {
                     ForEach(0..<allergies.count, id: \.self) { index in
                         Text(allergies[index])
@@ -28,19 +28,19 @@ struct NewInformationView: View {
                             }
                     }
                 }
-                Button("Adicionar alergia") {
+                Button("Add Allergy") {
                     showingAlert.toggle()
                 }
-                .alert("Nova alergia", isPresented: $showingAlert) {
-                    TextField("Alergia", text: $allergyName)
+                .alert("New Allergy", isPresented: $showingAlert) {
+                    TextField("Allergy", text: $allergyName)
                     Button("OK", action: addAllergy)
                     Button("Cancel", role: .cancel) { }
                 } message: {
-                    Text("Descreva o nome da alergia para ser adicionada na lista")
+                    Text("Describe the name of the allergy to be added to the list")
                 }
             }
         }
-        .navigationTitle("Editar informações")
+        .navigationTitle("Edit Information")
     }
     
     func addAllergy() {

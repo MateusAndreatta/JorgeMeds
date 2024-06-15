@@ -33,7 +33,7 @@ struct SignUpView: View {
                 .padding(.bottom, 20)
 
             
-            TextField("E-mail", text: $userEmail)
+            TextField("Email", text: $userEmail)
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(5.0)
@@ -51,7 +51,7 @@ struct SignUpView: View {
                 .cornerRadius(5.0)
                 .padding(.bottom, 20)
             
-            Button("Create account") {
+            Button {
                 Task {
                     await viewModel.createAccount(name: userName, email: userEmail, password: userPassword, confirmPassword: userConfirmPassword) { success, message in
                         DispatchQueue.main.async {
@@ -64,9 +64,15 @@ struct SignUpView: View {
                         }
                     }
                 }
-
+            } label: {
+                Text("Create Account")
+                    .padding(.all, 8)
+                    .padding(.horizontal, 70)
+                
             }
+            .buttonStyle(.borderedProminent)
         }
+        
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Sign Up Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }

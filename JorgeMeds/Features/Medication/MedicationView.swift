@@ -34,12 +34,12 @@ struct MedicationView: View {
     var body: some View {
         VStack {
             Form {
-                TextField("Nome", text: $name)
-                TextField("Quantidade", text: $quantity)
+                TextField("Name", text: $name)
+                TextField("Quantity of pills", text: $quantity)
                     .keyboardType(.numberPad)
                 
                 ForEach(0..<$dates.count, id: \.self) { index in
-                    DatePicker("Horário", selection: $dates[index], displayedComponents: .hourAndMinute)
+                    DatePicker("Time", selection: $dates[index], displayedComponents: .hourAndMinute)
                         .swipeActions {
                             Button("Remove", role: .destructive) {
                                 dates.remove(at: index)
@@ -48,16 +48,22 @@ struct MedicationView: View {
                         }
                 }
 
-                Button("Adicionar horário") {
+                Button("Add time") {
                     dates.append(Date())
                 }
                 
             }
-            Button("Salvar") {
+            
+            Button {
                 viewModel.saveMedication(name: name, quantity: quantity, dates: dates)
+            } label: {
+                Text("Save")
+                    .padding(.all, 8)
+                    .padding(.horizontal, 100)
             }
+            .buttonStyle(.borderedProminent)
         }
-        .navigationBarTitle("Medicamento")
+        .navigationBarTitle("Medication")
     }
 }
 

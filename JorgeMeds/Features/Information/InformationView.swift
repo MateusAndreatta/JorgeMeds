@@ -15,7 +15,7 @@ struct InformationView: View {
         NavigationStack {
             List {
                 if let allergies = viewModel.information?.allergies, allergies.count > 0 {
-                    Section(header: Text("Alergias")) {
+                    Section(header: Text("Allergies")) {
                         ForEach(0..<allergies.count, id: \.self) { index in
                             Text(allergies[index])
                         }
@@ -23,14 +23,14 @@ struct InformationView: View {
                 }
                 
                 if let medications = viewModel.medications, medications.count > 0 {
-                    Section(header: Text("Medicamentos em uso")) {
+                    Section(header: Text("Medications in use")) {
                         ForEach(medications) { medication in
                             Text(medication.name)
                         }
                     }
                 }
             }
-            .navigationTitle("Seus dados")
+            .navigationTitle("Your information")
             .toolbar {
                 NavigationLink(destination: NewInformationView().environmentObject(viewModel)) {
                     Image(systemName: "plus").foregroundColor(.gray)

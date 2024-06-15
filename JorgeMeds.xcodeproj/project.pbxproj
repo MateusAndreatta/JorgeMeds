@@ -38,6 +38,7 @@
 		393345D22C15FCF20072FD47 /* NewInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345D12C15FCF20072FD47 /* NewInformationView.swift */; };
 		393345D52C161CCA0072FD47 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393345D42C161CCA0072FD47 /* NotificationManager.swift */; };
 		39F2A7752C1A6A3C000F3E7E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F2A7742C1A6A3C000F3E7E /* SettingsViewModel.swift */; };
+		39F2A77D2C1CB986000F3E7E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 39F2A77C2C1CB986000F3E7E /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		393345D12C15FCF20072FD47 /* NewInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInformationView.swift; sourceTree = "<group>"; };
 		393345D42C161CCA0072FD47 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		39F2A7742C1A6A3C000F3E7E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		39F2A77C2C1CB986000F3E7E /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		3933457F2C0FDAAB0072FD47 /* JorgeMeds */ = {
 			isa = PBXGroup;
 			children = (
+				39F2A77C2C1CB986000F3E7E /* Localizable.xcstrings */,
 				393345B12C111C4A0072FD47 /* Services */,
 				3933459F2C0FF3010072FD47 /* GoogleService-Info.plist */,
 				3933458E2C0FDB2A0072FD47 /* Features */,
@@ -170,6 +173,7 @@
 		393345982C0FE1500072FD47 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				39F2A7792C1CB292000F3E7E /* Models */,
 				3933459D2C0FE1860072FD47 /* SettingsView.swift */,
 				39F2A7742C1A6A3C000F3E7E /* SettingsViewModel.swift */,
 			);
@@ -279,6 +283,13 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		39F2A7792C1CB292000F3E7E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,6 +339,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = 393345742C0FDAAB0072FD47;
 			packageReferences = (
@@ -349,6 +361,7 @@
 			files = (
 				393345882C0FDAAD0072FD47 /* Preview Assets.xcassets in Resources */,
 				393345A02C0FF3010072FD47 /* GoogleService-Info.plist in Resources */,
+				39F2A77D2C1CB986000F3E7E /* Localizable.xcstrings in Resources */,
 				393345852C0FDAAD0072FD47 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

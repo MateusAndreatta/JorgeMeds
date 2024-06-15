@@ -15,8 +15,8 @@ struct MedicationItem: View {
         VStack {
             VStack(alignment: .leading) {
                 Text(medication.name).font(.headline).padding(.bottom, 8)
-                Text("💊 Restam \(medication.quantity) comprimidos")
-                Text("🗓️ Irá acabar em \(calculateEndingDate())")
+                Text("💊 \(medication.quantity) pills remaining")
+                Text("🗓️ It will run out on \(calculateEndingDate())")
             }.padding()
         }
         .frame(maxWidth: .infinity, alignment: .leading)
