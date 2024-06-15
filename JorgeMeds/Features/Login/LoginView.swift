@@ -16,6 +16,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showingAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var loading: Bool = false
     
     var body: some View {
         
@@ -40,10 +41,15 @@ struct LoginView: View {
                 Button {
                     loginButtonTapped()
                 } label: {
-                    Text("Login")
-                        .padding(.all, 8)
-                        .padding(.horizontal, 100)
-                    
+                    HStack(spacing: 8) {
+                        Text("Login")
+                        if loading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        }
+                    }
+                    .padding(.all, 8)
+                    .padding(.horizontal, 100)
                 }
                 .buttonStyle(.borderedProminent)
                 
@@ -60,9 +66,11 @@ struct LoginView: View {
     }
     
     private func loginButtonTapped() {
+        loading = true
         Task {
             await viewModel.login(email: email, password: password) { success, message in
                 DispatchQueue.main.async {
+                    loading = false
                     if !success {
                         alertMessage = message
                         showingAlert = true

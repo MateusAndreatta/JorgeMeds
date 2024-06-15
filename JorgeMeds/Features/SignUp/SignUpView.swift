@@ -19,6 +19,7 @@ struct SignUpView: View {
     
     @State private var showingAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var loading: Bool = false
     
     var body: some View {
         VStack {
@@ -52,22 +53,17 @@ struct SignUpView: View {
                 .padding(.bottom, 20)
             
             Button {
-                Task {
-                    await viewModel.createAccount(name: userName, email: userEmail, password: userPassword, confirmPassword: userConfirmPassword) { success, message in
-                        DispatchQueue.main.async {
-                            if !success {
-                                alertMessage = message
-                                showingAlert = true
-                                return
-                            }
-                            sessionManager.isUserSessionActive = true
-                        }
+                signUpButtonTapped()
+            } label: {
+                HStack(spacing: 8) {
+                    Text("Create Account")
+                    if loading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     }
                 }
-            } label: {
-                Text("Create Account")
-                    .padding(.all, 8)
-                    .padding(.horizontal, 70)
+                .padding(.all, 8)
+                .padding(.horizontal, 70)
                 
             }
             .buttonStyle(.borderedProminent)
@@ -77,6 +73,23 @@ struct SignUpView: View {
             Alert(title: Text("Sign Up Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
         .padding()
+    }
+    
+    private func signUpButtonTapped() {
+        loading = true
+        Task {
+            await viewModel.createAccount(name: userName, email: userEmail, password: userPassword, confirmPassword: userConfirmPassword) { success, message in
+                DispatchQueue.main.async {
+                    loading = false
+                    if !success {
+                        alertMessage = message
+                        showingAlert = true
+                        return
+                    }
+                    sessionManager.isUserSessionActive = true
+                }
+            }
+        }
     }
 }
 
