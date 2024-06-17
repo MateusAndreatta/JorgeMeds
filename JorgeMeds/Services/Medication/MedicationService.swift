@@ -70,7 +70,10 @@ class MedicationService {
     }
     
     func getAll(completion: @escaping ([Medication]) -> Void) {
-        guard let userId = authManager.userSession?.id else { return }
+        guard let userId = authManager.userSession?.id else { 
+            completion([])
+            return
+        }
 
         db.collection(collection).whereField("userId", isEqualTo: userId).getDocuments { (querySnapshot, err) in
             guard err == nil else {

@@ -14,10 +14,11 @@ class HomeViewModel: ObservableObject {
     let service = MedicationService()
     let notificationManager = NotificationManager()
     
-    func getMedicationList() {
+    func getMedicationList(completion: @escaping () -> Void) {
         medicationList = []
         service.getAll { [weak self] medications in
             self?.validateTakenMedication(uncheckedMedicationList: medications)
+            completion()
         }
     }
     
