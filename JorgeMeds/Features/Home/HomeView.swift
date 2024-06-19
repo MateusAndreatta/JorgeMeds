@@ -28,7 +28,7 @@ struct HomeView: View {
             .navigationTitle("Medications")
             .navigationDestination(isPresented: $isMedicationViewActive) {
                 if let medication = selectedMedication {
-                    MedicationView(editMedication: medication)
+                    MedicationView(editMedication: medication, forceReloadingAction: reload)
                 }
             }
         }.onAppear() {
@@ -56,7 +56,7 @@ struct HomeView: View {
             
             ZStack {
               Text("New medication")
-              NavigationLink(destination: MedicationView(editMedication: nil), label: {
+              NavigationLink(destination: MedicationView(editMedication: nil, forceReloadingAction: reload), label: {
                   EmptyView()
               }).opacity(0)
             }
@@ -64,6 +64,13 @@ struct HomeView: View {
 
         }
         .listStyle(.plain)
+    }
+    
+    private func reload() {
+        isLoading = true
+        viewModel.getMedicationList {
+            isLoading = false
+        }
     }
 }
 

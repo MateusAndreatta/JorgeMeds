@@ -10,13 +10,19 @@ import SwiftUI
 struct MedicationView: View {
     @ObservedObject var viewModel: MedicationViewModel
     let editMedication: Medication?
+    var forceReloadingAction: () -> Void
     
     @State var name: String
     @State var quantity: String
     @State var dates: [Date]
     
-    init(editMedication: Medication?) {
+    @State private var loading: Bool = false
+    
+    @Environment(\.presentationMode) var presentation
+    
+    init(editMedication: Medication?, forceReloadingAction: @escaping () -> Void) {
         self.editMedication = editMedication
+        self.forceReloadingAction = forceReloadingAction
         if let editMedication {
             self.viewModel = MedicationViewModel(editMedication: editMedication)
             
@@ -55,11 +61,22 @@ struct MedicationView: View {
             }
             
             Button {
-                viewModel.saveMedication(name: name, quantity: quantity, dates: dates)
+                loading = true
+                viewModel.saveMedication(name: name, quantity: quantity, dates: dates) {
+                    loading = false
+                    forceReloadingAction()
+                    presentation.wrappedValue.dismiss()
+                }
             } label: {
-                Text("Save")
-                    .padding(.all, 8)
-                    .padding(.horizontal, 100)
+                HStack(spacing: 8) {
+                    Text("Save")
+                    if loading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    }
+                }
+                .padding(.all, 8)
+                .padding(.horizontal, 100)
             }
             .buttonStyle(.borderedProminent)
         }
@@ -70,7 +87,7 @@ struct MedicationView: View {
 struct MedicationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MedicationView(editMedication: nil)
+            MedicationView(editMedication: nil) {}
         }
     }
 }

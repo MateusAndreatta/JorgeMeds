@@ -16,7 +16,7 @@ class MedicationViewModel: ObservableObject {
         self.editMedication = editMedication
     }
     
-    func saveMedication(name: String, quantity: String, dates: [Date]) {
+    func saveMedication(name: String, quantity: String, dates: [Date], completion: @escaping () -> Void) {
         if let quantity = Int(quantity) {
             
             if var editMedication {
@@ -25,13 +25,13 @@ class MedicationViewModel: ObservableObject {
                 editMedication.quantity = quantity
                 
                 service.update(medication: editMedication) {
-                    print("edited")
+                    completion()
                 }
                 
             } else {
                 let medication = Medication(name: name, quantity: quantity, hours: parseDates(dates))
                 service.addNewMedication(medication) {
-                    print("completition")
+                    completion()
                 }
             }
 
