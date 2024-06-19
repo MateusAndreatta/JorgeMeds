@@ -16,7 +16,9 @@ struct MedicationItem: View {
             VStack(alignment: .leading) {
                 Text(medication.name).font(.headline).padding(.bottom, 8)
                 Text("💊 \(medication.quantity) pills remaining")
-                Text("🗓️ It will run out on \(calculateEndingDate())")
+                if medication.hours.count > 0 {
+                    Text("🗓️ It will run out on \(calculateEndingDate())")
+                }
             }.padding()
         }
         .frame(maxWidth: .infinity, alignment: .leading)

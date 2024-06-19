@@ -9,7 +9,9 @@ import SwiftUI
 
 struct NewInformationView: View {
     
-    @EnvironmentObject var viewModel: InformationViewModel
+    var allergies: [String]
+    var addAction: (String) -> Void
+    var removeAction: (Int) -> Void
     
     @State private var showingAlert = false
     @State private var allergyName = ""
@@ -17,17 +19,15 @@ struct NewInformationView: View {
     var body: some View {
         List {
             Section(header: Text("Allergies")) {
-                if let allergies = viewModel.information?.allergies, allergies.count > 0 {
                     ForEach(0..<allergies.count, id: \.self) { index in
                         Text(allergies[index])
                             .swipeActions {
                                 Button("Remove", role: .destructive) {
-                                    viewModel.removeAllergy(at: index)
+                                    removeAction(index)
                                 }
                                 .tint(.red)
                             }
                     }
-                }
                 Button("Add Allergy") {
                     showingAlert.toggle()
                 }
@@ -45,7 +45,7 @@ struct NewInformationView: View {
     
     func addAllergy() {
         if !allergyName.isEmpty {
-            viewModel.addAllergy(allergyName)
+            addAction(allergyName)
             allergyName = ""
         }
     }
@@ -53,7 +53,6 @@ struct NewInformationView: View {
 
 struct NewInformationView_Previews: PreviewProvider {
     static var previews: some View {
-        NewInformationView()
-            .environmentObject(InformationViewModel())
+        NewInformationView(allergies: ["Nimesulina"], addAction: {_ in }, removeAction: {_ in })
     }
 }

@@ -14,11 +14,9 @@ struct InformationView: View {
     var body: some View {
         NavigationStack {
             List {
-                if let allergies = viewModel.information?.allergies, allergies.count > 0 {
-                    Section(header: Text("Allergies")) {
-                        ForEach(0..<allergies.count, id: \.self) { index in
-                            Text(allergies[index])
-                        }
+                Section(header: Text("Allergies")) {
+                    ForEach(viewModel.allergies, id: \.self) { allergy in
+                        Text(allergy)
                     }
                 }
                 
@@ -32,7 +30,15 @@ struct InformationView: View {
             }
             .navigationTitle("Your information")
             .toolbar {
-                NavigationLink(destination: NewInformationView().environmentObject(viewModel)) {
+                let destination = NewInformationView(allergies: viewModel.allergies,
+                                                     addAction: { allergy in
+                                                        viewModel.addAllergy(allergy)
+                                                     },
+                                                     removeAction: { index in
+                                                        viewModel.removeAllergy(at: index)
+                                                     })
+                
+                NavigationLink(destination: destination) {
                     Image(systemName: "plus").foregroundColor(.gray)
                 }
             }

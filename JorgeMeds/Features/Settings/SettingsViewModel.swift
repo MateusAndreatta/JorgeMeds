@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class SettingsViewModel: ObservableObject {
     
@@ -16,9 +17,7 @@ class SettingsViewModel: ObservableObject {
     @Published var userName = ""
     @Published var isNotificationsEnable = false {
         didSet {
-            print("myVar changed! \(isNotificationsEnable)")
             defaults.set(isNotificationsEnable, forKey: "isNotificationsEnable")
-            setupNotification()
         }
     }
     
@@ -30,18 +29,23 @@ class SettingsViewModel: ObservableObject {
         isNotificationsEnable = defaults.bool(forKey: "isNotificationsEnable")
         userName = authManager.userSession?.name ?? "Tap to setup your name"
     }
-    
-    func setupNotification() {
-        if isNotificationsEnable {
-            Task {
-                notificationManager.requestAuthorization { [weak self] didAllow in
-                    DispatchQueue.main.async {
-                        self?.isNotificationsEnable = didAllow
-                    }
-                }
-            }
+
+    func onTapNotification() {
+        if !isNotificationsEnable {
+            openAppSettings()
         }
     }
+    
+    private func openAppSettings() {
+         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+             return
+         }
+         if UIApplication.shared.canOpenURL(settingsUrl) {
+             UIApplication.shared.open(settingsUrl, completionHandler: { success in
+                 print("open app settings: \(success)")
+             })
+         }
+     }
     
     func changeName(_ name: String) {
         userName = name

@@ -9,12 +9,15 @@ import SwiftUI
 import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-
-    return true
-  }
+    func application(_ application: UIApplication,
+       didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        NotificationManager.requestAuthorization(completion: ) { didAllow in
+            let defaults = UserDefaults.standard
+            defaults.set(didAllow, forKey: "isNotificationsEnable")
+        }
+        return true
+    }
 }
 
 @main

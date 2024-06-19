@@ -20,17 +20,13 @@ class NotificationManager {
                 completion(true)
             case .denied:
                 completion(false)
-            case .notDetermined:
-                self?.requestAuthorization() { didAllow in
-                    completion(didAllow)
-                }
             default:
                 completion(false)
             }
         }
     }
     
-    public func requestAuthorization(completion: @escaping (Bool) -> Void) {
+    public static func requestAuthorization(completion: @escaping (Bool) -> Void) {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.requestAuthorization(options: [.alert, .sound]) { didAllow, error in
             completion(didAllow)
@@ -42,13 +38,9 @@ class NotificationManager {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllPendingNotificationRequests()
         if isNotificationsEnable {
-            checkForPermission() { [weak self] isEnable in
-                if isEnable {
-                    for medication in medicationList {
-                        for hour in medication.hours {
-                            self?.dispatchNotification(for: medication, at: hour)
-                        }
-                    }
+            for medication in medicationList {
+                for hour in medication.hours {
+                    self.dispatchNotification(for: medication, at: hour)
                 }
             }
         }

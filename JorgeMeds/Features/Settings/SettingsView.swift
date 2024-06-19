@@ -34,6 +34,10 @@ struct SettingsView: View {
                 Toggle(isOn: $viewModel.isNotificationsEnable) {
                     Text("Notifications")
                 }
+                .onTapGesture {
+                    print("ON TAP - \(viewModel.isNotificationsEnable)")
+                    viewModel.onTapNotification()
+                }
                 
                 Button("Logout") {
                     viewModel.logout()
