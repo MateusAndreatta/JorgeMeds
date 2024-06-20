@@ -17,6 +17,7 @@ struct MedicationView: View {
     @State var dates: [Date]
     
     @State private var loading: Bool = false
+    @State private var showingAlert: Bool = false
     
     @Environment(\.presentationMode) var presentation
     
@@ -61,11 +62,13 @@ struct MedicationView: View {
             }
             
             Button {
-                loading = true
-                viewModel.saveMedication(name: name, quantity: quantity, dates: dates) {
-                    loading = false
-                    forceReloadingAction()
-                    presentation.wrappedValue.dismiss()
+                if validateForm() {
+                    loading = true
+                    viewModel.saveMedication(name: name, quantity: quantity, dates: dates) {
+                        loading = false
+                        forceReloadingAction()
+                        presentation.wrappedValue.dismiss()
+                    }
                 }
             } label: {
                 HStack(spacing: 8) {
@@ -81,7 +84,20 @@ struct MedicationView: View {
             .buttonStyle(.borderedProminent)
         }
         .navigationBarTitle("Medication")
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Required Fields Missing"), message: Text("Please fill out these fields."), dismissButton: .default(Text("OK")))
+        }
     }
+    
+    private func validateForm() -> Bool {
+        if name.isEmpty || quantity.isEmpty || dates.count <= 0 {
+            showingAlert = true
+            return false
+        }
+        showingAlert = false
+        return true
+    }
+    
 }
 
 struct MedicationView_Previews: PreviewProvider {

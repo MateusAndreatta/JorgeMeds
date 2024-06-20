@@ -151,6 +151,16 @@
         }
       }
     },
+    "Form submission failed!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Infelizmente não foi possível salvar."
+          }
+        }
+      }
+    },
     "JorgeMeds 💊" : {
       "localizations" : {
         "pt-BR" : {
@@ -277,6 +287,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Senha"
+          }
+        }
+      }
+    },
+    "Please fill all the form" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, preencha todos os campos."
           }
         }
       }
