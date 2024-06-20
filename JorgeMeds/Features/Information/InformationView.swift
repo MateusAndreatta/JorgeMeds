@@ -14,12 +14,14 @@ struct InformationView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("Allergies")) {
-                    ForEach(viewModel.allergies, id: \.self) { allergy in
-                        Text(allergy)
+                if viewModel.allergies.count > 0 {
+                    Section(header: Text("Allergies")) {
+                        ForEach(viewModel.allergies, id: \.self) { allergy in
+                            Text(allergy)
+                        }
                     }
                 }
-                
+
                 if let medications = viewModel.medications, medications.count > 0 {
                     Section(header: Text("Medications in use")) {
                         ForEach(medications) { medication in

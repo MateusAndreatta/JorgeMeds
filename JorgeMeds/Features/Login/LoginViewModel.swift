@@ -14,16 +14,23 @@ class LoginViewModel: ObservableObject {
     
     func login(email: String, password: String, completion: @escaping (Bool, String) -> Void) async {
         do {
-            if email.isEmpty {
+            if validateRequiredFields(email: email, password: password) {
                 try await authManager.login(email: "mateus@gmail.com", password: "123123")
+//                try await authManager.login(email: email, password: password)
+                completion(true, "")
             } else {
-                try await authManager.login(email: email, password: password)
+                completion(false, "Required fields missing")
             }
-
-            completion(true, "")
         } catch {
             completion(false, "Unable to login, try again later...")
         }
+    }
+    
+    private func validateRequiredFields(email: String, password: String) -> Bool {
+        if email.isEmpty || password.isEmpty {
+            return false
+        }
+        return true
     }
     
 }

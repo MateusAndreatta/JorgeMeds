@@ -152,6 +152,7 @@
       }
     },
     "Form submission failed!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -176,7 +177,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Login"
+            "value" : "Entrar"
           }
         }
       }
@@ -292,6 +293,17 @@
       }
     },
     "Please fill all the form" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, preencha todos os campos."
+          }
+        }
+      }
+    },
+    "Please fill out these fields." : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -317,6 +329,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remover"
+          }
+        }
+      }
+    },
+    "Required Fields Missing" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campos necessários não preenchidos."
           }
         }
       }
