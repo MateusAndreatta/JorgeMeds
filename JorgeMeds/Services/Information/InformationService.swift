@@ -35,7 +35,7 @@ class InformationService {
     func update(information: Information, completion: @escaping () -> Void) {
         guard let docId = information.id else { return }
         let ref = db.collection(collection).document(docId)
-        
+        print("🐞 \(information)")
         ref.updateData([
             "allergies": information.allergies
         ]) { err in

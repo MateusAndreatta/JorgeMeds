@@ -31,22 +31,18 @@ class InformationViewModel: ObservableObject {
     }
     
     func removeAllergy(at index: Int) {
+        allergies.remove(at: index)
         if var information {
-            information.allergies.remove(at: index)
-            allergies = information.allergies
-            service.update(information: information) {
-                
-            }
+            information.allergies = allergies
+            service.update(information: information) { }
         }
     }
     
     func addAllergy(_ allergy: String) {
         if var information {
-            information.allergies.append(allergy)
-            allergies = information.allergies
-            service.update(information: information) {
-                
-            }
+            allergies.append(allergy)
+            information.allergies = allergies
+            service.update(information: information) { }
         } else {
             let newInformation = Information(allergies: [allergy])
             allergies = newInformation.allergies
