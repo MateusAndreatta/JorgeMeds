@@ -30,25 +30,45 @@ class InformationViewModel: ObservableObject {
         }
     }
     
-    func removeAllergy(at index: Int) {
+    func removeAllergy(at index: Int, completion: @escaping (Bool) -> Void) {
         allergies.remove(at: index)
         if var information {
             information.allergies = allergies
-            service.update(information: information) { }
+            service.update(information: information) { result in
+                switch result {
+                case .success:
+                    completion(true)
+                case .failure:
+                    completion(false)
+                }
+            }
         }
     }
     
-    func addAllergy(_ allergy: String) {
+    func addAllergy(_ allergy: String, completion: @escaping (Bool) -> Void) {
         if var information {
             allergies.append(allergy)
             information.allergies = allergies
-            service.update(information: information) { }
+            service.update(information: information) { result in
+                switch result {
+                case .success:
+                    completion(true)
+                case .failure:
+                    completion(false)
+                }
+            }
         } else {
             let newInformation = Information(allergies: [allergy])
             allergies = newInformation.allergies
-            service.addNewInformation(newInformation, completion: { [weak self] in
-                self?.fetchInformation()
-            })
+            service.addNewInformation(newInformation) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.fetchInformation()
+                    completion(true)
+                case .failure:
+                    completion(false)
+                }
+            }
         }
     }
     

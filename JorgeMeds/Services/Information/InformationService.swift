@@ -15,7 +15,7 @@ class InformationService {
     
     private let collection = "informacoes"
     
-    func addNewInformation(_ information: Information, completion: @escaping () -> Void) {
+    func addNewInformation(_ information: Information, completion: @escaping (Result<String, Error>) -> Void) {
         guard let userId = authManager.userSession?.id else { return }
         var ref: DocumentReference? = nil
         ref = db.collection(collection).addDocument(data: [
@@ -24,15 +24,15 @@ class InformationService {
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
-                completion()
+                completion(.failure(err))
             } else {
-                completion()
+                completion(.success(ref!.documentID))
                 print("Document added with ID: \(ref!.documentID)")
             }
         }
     }
     
-    func update(information: Information, completion: @escaping () -> Void) {
+    func update(information: Information, completion: @escaping (Result<Information, Error>) -> Void) {
         guard let docId = information.id else { return }
         let ref = db.collection(collection).document(docId)
         ref.updateData([
@@ -40,10 +40,11 @@ class InformationService {
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
+                completion(.failure(err))
             } else {
                 print("Document successfully updated")
+                completion(.success(information))
             }
-            completion()
         }
     }
     

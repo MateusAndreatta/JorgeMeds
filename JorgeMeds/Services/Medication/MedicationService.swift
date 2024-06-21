@@ -36,7 +36,7 @@ class MedicationService {
         }
     }
     
-    func update(medication: Medication, completion: @escaping () -> Void) {
+    func update(medication: Medication, completion: (() -> Void)? = nil) {
         guard let docId = medication.id else { return }
         let ref = db.collection(collection).document(docId)
         
@@ -51,7 +51,7 @@ class MedicationService {
             } else {
                 print("Document successfully updated")
             }
-            completion()
+            completion?()
         }
     }
     

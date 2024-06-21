@@ -151,6 +151,16 @@
         }
       }
     },
+    "Error!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro!"
+          }
+        }
+      }
+    },
     "Form submission failed!" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -309,6 +319,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Por favor, preencha todos os campos."
+          }
+        }
+      }
+    },
+    "Please try again later" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, tente novamente mais tarde."
           }
         }
       }

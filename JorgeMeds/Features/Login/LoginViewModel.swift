@@ -26,10 +26,7 @@ class LoginViewModel: ObservableObject {
     }
     
     private func validateRequiredFields(email: String, password: String) -> Bool {
-        if email.isEmpty || password.isEmpty {
-            return false
-        }
-        return true
+        return !email.isEmpty && !password.isEmpty
     }
     
 }

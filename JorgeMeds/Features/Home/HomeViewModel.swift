@@ -148,8 +148,6 @@ class HomeViewModel: ObservableObject {
    }
     
     private func updateMedication(_ medication: Medication) {
-        service.update(medication: medication, completion: {
-            
-        })
+        service.update(medication: medication)
     }
 }

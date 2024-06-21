@@ -11,6 +11,8 @@ struct InformationView: View {
     
     @ObservedObject var viewModel = InformationViewModel()
     
+    @State private var showingAlert: Bool = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -34,20 +36,26 @@ struct InformationView: View {
             .toolbar {
                 let destination = NewInformationView(allergies: viewModel.allergies,
                                                      addAction: { allergy in
-                                                        viewModel.addAllergy(allergy)
+                                                        viewModel.addAllergy(allergy, completion: showErrorAlert)
                                                      },
                                                      removeAction: { index in
-                                                        viewModel.removeAllergy(at: index)
+                                                        viewModel.removeAllergy(at: index, completion: showErrorAlert)
                                                      })
-                
                 NavigationLink(destination: destination) {
                     Image(systemName: "plus").foregroundColor(.gray)
                 }
+            }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Error!"), message: Text("Please try again later"), dismissButton: .default(Text("OK")))
             }
         }
         .onAppear() {
             viewModel.fetchInformation()
         }
+    }
+    
+    private func showErrorAlert(_ success: Bool) {
+        showingAlert = !success
     }
 }
 
