@@ -16,6 +16,50 @@ This app is used for medication stock control and reminders through push notific
 * Push notifications
 * Multiple language support (currently only Portuguese and English)
 
+## 🎬 Preview
+
+<details>
+  <summary>Sign in / Sign up</summary>
+  
+  ![Sign in / Sign up](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/Sign%20In%20%3A%20Sign%20Up.png)
+</details>
+
+<details>
+  <summary>Home</summary>
+ 
+  ![Home](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/Home.png)
+</details>
+
+<details>
+  <summary>Add Medication</summary>
+ 
+  ![Add Medication](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/add%20medication%20screen.gif)
+</details>
+
+<details>
+  <summary>Information Screen</summary>
+ 
+  ![Information Screen](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/information%20screen.png)
+</details>
+
+<details>
+  <summary>Add Allergy</summary>
+ 
+  ![Add Allergy](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/add%20allergy.gif)
+</details>
+
+<details>
+  <summary>Settings</summary>
+ 
+  ![Settings](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/Settings.png)
+</details>
+
+<details>
+  <summary>Push Notification</summary>
+ 
+  ![Notification](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/notification.jpg)
+</details>
+
 ## 💥 Compatibility
 
   * iOS 16.4 +
