@@ -20,7 +20,19 @@ This app is used for medication stock control and reminders through push notific
 
   * iOS 16.4 +
   * Swift 5
-  * xCode 15.4
+  * Xcode 15.4
+
+## 🧪 How to test?
+
+1. Clone this project using
+
+`git clone https://github.com/MateusAndreatta/JorgeMeds.git`
+
+2. Open the project on Xcode
+3. Build it on simulator or real device
+4. You can create a new account or use this for testing:
+   * Email: test@udacity.com
+   * Password: udacity123
 
 ## ✔️ Changelog
 
