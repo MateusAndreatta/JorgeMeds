@@ -13,10 +13,10 @@ This app is used for medication stock control and reminders through push notific
 * Edit profile name
 * Medication management
 * Allergies management
-* Push Notifications
-* Multiple languages support (currently only Portuguese and English)
+* Push notifications
+* Multiple language support (currently only Portuguese and English)
 
-## 💥Compatibility
+## 💥 Compatibility
 
   * iOS 16.4 +
   * Swift 5
@@ -28,14 +28,36 @@ This app is used for medication stock control and reminders through push notific
 
 `git clone https://github.com/MateusAndreatta/JorgeMeds.git`
 
-2. Open the project on Xcode
-3. Build it on simulator or real device
-4. You can create a new account or use this for testing:
+2. Open the project in Xcode
+3. Build it on a simulator or real device
+4. You can create a new account or use this one for testing:
    * Email: test@udacity.com
    * Password: udacity123
+
+#### Testing Push
+
+⚠️ For this test, you must run the app on a real device!
+
+1. Go to settings screen, and make sure that notifications are on.
+2. Add a new medication or edit one, setting time for when you want to receive
+3. Click the save button.
+4. That's all! Just close the app and wait for the push notification.
+
+#### Testing multiple languages support
+
+For the best UX, the app uses the device's preferred language. For example:
+If the device's preferred language is English, the app will be in english as well.
+If the device's preferred language is Brazilian Portuguese, the app will be in Portuguese.
+For any other language, the app will use English as the default language.
+
+Changing your device's preferred language
+1. Open the 'Settings' app
+2. Go to 'General'
+3. Tap on 'Language & Region'
+4. Then 'Add Language...'
 
 ## ✔️ Changelog
 
 ### Version: 1.0
 
-  * Initial Build
+  * Initial build
