@@ -54,6 +54,12 @@ This app is used for medication stock control and reminders through push notific
   ![Settings](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/Settings.png)
 </details>
 
+<details>
+  <summary>Push Notification</summary>
+ 
+  ![Notification](https://github.com/MateusAndreatta/JorgeMeds/blob/main/Preview/notification.jpg)
+</details>
+
 ## 💥 Compatibility
 
   * iOS 16.4 +
