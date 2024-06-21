@@ -77,7 +77,6 @@ class MedicationService {
 
         db.collection(collection).whereField("userId", isEqualTo: userId).getDocuments { (querySnapshot, err) in
             guard err == nil else {
-                print("error")
                 completion([])
                 return
             }

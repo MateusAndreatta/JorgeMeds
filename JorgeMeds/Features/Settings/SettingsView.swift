@@ -35,7 +35,6 @@ struct SettingsView: View {
                     Text("Notifications")
                 }
                 .onTapGesture {
-                    print("ON TAP - \(viewModel.isNotificationsEnable)")
                     viewModel.onTapNotification()
                 }
                 
